@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myl.springboot.mapper.ChBlCakeMapper">
+
+    <select id="selectTotalByPersonIdDate" parameterType="com.myl.springboot.entity.ChBlCakeEntity"
+            resultType="String">
+        select cakeid from ch_bl_cake where personid=#{personId} and cakedate=#{cakeDate} and state = 0 for update
+    </select>
+
+    <insert id="insertCakeByPersonIdDate" parameterType="com.myl.springboot.entity.ChBlCakeEntity">
+        INSERT INTO CH_BL_CAKE (
+	PERSONID,
+	CAKEDATE,
+	CAKEID,
+	STATE,
+	TASKID
+) SELECT
+	PERSONID,
+	20210106,
+	CAKEID,
+	STATE,
+	TASKID
+FROM CH_BL_CAKE
+WHERE PERSONID = #{personId}
+AND CAKEDATE = 20000101
+AND NOT EXISTS (
+	SELECT 1 FROM CH_BL_CAKE
+	WHERE PERSONID = #{personId}
+	AND CAKEDATE = #{cakeDate}
+)
+    </insert>
+
+    <update id="updateCakeByPersonIdDateCakeid" parameterType="com.myl.springboot.entity.ChBlCakeEntity">
+        update ch_bl_cake set state=1, taskid=#{taskId} where personid=#{personId} and cakedate=#{cakeDate} and cakeid=#{cakeId} and state = 0
+    </update>
+
+</mapper>

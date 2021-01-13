@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    #本地数据库
+    driverClassName: com.mysql.cj.jdbc.Driver
+    #type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=GMT%2B8
+    #url: jdbc:mysql://127.0.0.1:3306/zjhtest?serverTimezone=GMT%2B8
+    username: root
+    password: 123
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.myl.springboot.entity
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
